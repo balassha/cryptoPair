@@ -1,0 +1,15 @@
+package Utils
+
+var ResponseKeys = []string{
+	"CHANGE24HOUR",
+	"CHANGEPCT24HOUR",
+	"OPEN24HOUR",
+	"VOLUME24HOUR",
+	"VOLUME24HOURTO",
+	"LOW24HOUR",
+	"HIGH24HOUR",
+	"PRICE",
+	"LASTUPDATE",
+	"SUPPLY",
+	"MKTCAP",
+}
