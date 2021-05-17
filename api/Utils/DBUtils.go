@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -27,11 +28,11 @@ func ReadDBConfiguration(file string) (resp [][]string, err error) {
 	return records, nil
 }
 
-//Creates the DB Connection string
+//Creates the connection params as a string
 func ProcessDBConnectionString(data [][]string, err error) string {
 
 	if err != nil {
-		fmt.Println(fmt.Errorf("encountered error while processing Databse Configuration : %v", err))
+		fmt.Println(fmt.Errorf("encountered error while processing Connection parameters : %v", err))
 		return ""
 	}
 	connStr := "?"
@@ -45,4 +46,20 @@ func ProcessDBConnectionString(data [][]string, err error) string {
 	connStr += strings.Join(params, "&")
 
 	return connStr
+}
+
+// Read MySQL server configuration
+func ProcessDBServerConfiguration(data [][]string, err error) string {
+	if err != nil {
+		fmt.Println(fmt.Errorf("encountered error while processing Databse Configuration : %v", err))
+		return ""
+	}
+
+	port, _ := strconv.Atoi(data[3][1])
+
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/",
+		data[0][1],
+		data[1][1],
+		data[2][1],
+		port)
 }

@@ -21,14 +21,16 @@ import (
 var err error
 
 const (
-	DBName = "crypto"
+	DBName       = "crypto"
+	dbParamsFile = "Config/DatabaseParams.csv"
+	dbConfigFile = "Config/DatabaseConfig.csv"
 )
 
 func init() {
 
 	//Open DB Connection
 	Database.DB, err = gorm.Open("mysql",
-		Database.DBConnectionString(Database.BuildDBConfig()))
+		Database.BuildDBConfig(dbConfigFile)+Database.BuildDBParams(dbParamsFile))
 
 	if err != nil {
 		log.Fatalf("Error while connecting to DB : %v", err)
